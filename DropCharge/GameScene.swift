@@ -8,6 +8,7 @@
 
 import SpriteKit
 import CoreMotion
+import GameplayKit
 
 
 struct PhysicsCategory {
@@ -51,8 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastItemPosition = CGPointZero
     var lastItemHeight: CGFloat = 0.0
     var levelY: CGFloat = 0.0
-    var isPlaying = false
-    
+       
     let motionManager = CMMotionManager()
     var xAcceleration = CGFloat(0)
     
@@ -62,6 +62,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastUpdateTimeInterval: NSTimeInterval = 0
     var deltaTime: NSTimeInterval = 0
     
+    lazy var gameState: GKStateMachine = GKStateMachine(states: [
+        WaitingForTap(scene: self),
+        WaitingForBomb(scene: self),
+        Playing(scene: self),
+        GameOver(scene: self)
+        ])
+    var lives = 3
+    
+    lazy var playerState: GKStateMachine = GKStateMachine(states: [
+        Idle(scene: self),
+        Jump(scene: self),
+        Fall(scene: self),
+        Lava(scene: self),
+        Dead(scene: self)
+        ])
+
+    
     override func didMoveToView(view: SKView) {
         
         setupCoreMotion()
@@ -70,30 +87,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         setupNodes()
         setupLevel()
-        setupPlayer()
         setCameraPosition(CGPoint(x: size.width/2, y: size.height/2))
         
+        // StateMachines
+        gameState.enterState(WaitingForTap)
+        playerState.enterState(Idle)
     }
     
     override func update(currentTime: NSTimeInterval) {
-        // 1
+        
         if lastUpdateTimeInterval > 0 {
             deltaTime = currentTime - lastUpdateTimeInterval
         } else {
             deltaTime = 0
         }
         lastUpdateTimeInterval = currentTime
-        // 2
         if paused { return }
-        // 3
-        if isPlaying == true {
-            updateCamera()
-            updatePlayer()
-            updateLava(deltaTime)
-            updateCollisionLava()
-            updateLevel()
-        }
+        gameState.updateWithDeltaTime(deltaTime)
     }
+    
+    
         
     func setupNodes() {
         let worldNode = childNodeWithName("World")!
@@ -156,16 +169,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    
-    //MARK: Player
-    func setupPlayer() {
-        
-        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width * 0.3)
-        player.physicsBody!.dynamic = false
-        player.physicsBody!.allowsRotation = false
-        player.physicsBody!.categoryBitMask = PhysicsCategory.Player
-        player.physicsBody!.collisionBitMask = 0
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        switch gameState.currentState {
+            case is WaitingForTap:
+                gameState.enterState(WaitingForBomb)
+                // Switch to playing state
+                self.runAction(SKAction.waitForDuration(2.0),
+                               completion:{
+                                self.gameState.enterState(Playing)
+                })
+            case is GameOver:
+                let newScene = GameScene(fileNamed:"GameScene")
+                newScene!.scaleMode = .AspectFill
+                let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+                self.view?.presentScene(newScene!, transition: reveal)
+        default:
+            break
+        }
     }
+    
     
     func setupCoreMotion() {
         motionManager.accelerometerUpdateInterval = 0.2
@@ -192,18 +214,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Set velocity based on core motion
         player.physicsBody?.velocity.dx = xAcceleration * 1000.0
         // Wrap player around edges of screen
-        var playerPosition = convertPoint(player.position,
-                                          fromNode: fgNode)
+        var playerPosition = convertPoint(player.position, fromNode: fgNode)
         if playerPosition.x < -player.size.width/2 {
-            playerPosition = convertPoint(CGPoint(x: size.width +
-                player.size.width/2, y: 0.0), toNode: fgNode)
+            playerPosition = convertPoint(CGPoint(x: size.width + player.size.width/2, y: 0.0), toNode: fgNode)
+            player.position.x = playerPosition.x
+        } else if playerPosition.x > size.width + player.size.width/2 {
+            playerPosition = convertPoint(CGPoint(x: -player.size.width/2, y: 0.0), toNode: fgNode)
             player.position.x = playerPosition.x
         }
-        else if playerPosition.x > size.width + player.size.width/2 {
-            playerPosition = convertPoint(CGPoint(x:
-                -player.size.width/2, y: 0.0), toNode: fgNode)
-            player.position.x = playerPosition.x
+        
+        if player.physicsBody?.velocity.dy > 0 {  //jumping
+            playerState.enterState(Jump)
+        } else {   // Falling
+            playerState.enterState(Fall)
         }
+        
     }
     
     func jumpPlayer() {
@@ -390,44 +415,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func updateCollisionLava() {
-        if player.position.y < lava.position.y + 90 {
-            boostPlayer()
+        
+        playerState.enterState(Lava)
+        
+        if lives <= 0 {
+            print ("gameover")
+            playerState.enterState(Dead)
+            gameState.enterState(GameOver)
         }
     }
     
     // MARK: - Events
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    
-        if !isPlaying {
-            bombDrop()
-        }
-    }
-    
-    
-    func bombDrop() {
-    
-        let scaleUp = SKAction.scaleTo(1.25, duration: 0.25)
-        let scaleDown = SKAction.scaleTo(1.0, duration: 0.25)
-        let sequence = SKAction.sequence([scaleUp, scaleDown])
-        let repeatSeq = SKAction.repeatActionForever(sequence)
-        fgNode.childNodeWithName("Bomb")!.runAction(SKAction.unhide())
-        fgNode.childNodeWithName("Bomb")!.runAction(repeatSeq)
-        runAction(SKAction.sequence([
-            SKAction.waitForDuration(2.0),
-            SKAction.runBlock(startGame)
-            ]))
-    }
-    
-    func startGame() {
-    
-        fgNode.childNodeWithName("Title")!.removeFromParent()
-        fgNode.childNodeWithName("Bomb")!.removeFromParent()
-        isPlaying = true
-        
-        player.physicsBody!.dynamic = true
-        superBoostPlayer()
-    }
-    
     
     func didBeginContact(contact: SKPhysicsContact) {
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA

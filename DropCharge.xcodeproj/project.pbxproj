@@ -42,6 +42,16 @@
 		A4390E4B1CC511E700EF571D /* CoinSDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = A4390E451CC511E700EF571D /* CoinSDiagonal.sks */; };
 		A4390E4C1CC511E700EF571D /* PlatformDiagonal.sks in Resources */ = {isa = PBXBuildFile; fileRef = A4390E461CC511E700EF571D /* PlatformDiagonal.sks */; };
 		A4390E4E1CC54FD700EF571D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A4390E4D1CC54FD700EF571D /* README.md */; };
+		A4390E501CC57C7D00EF571D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4390E4F1CC57C7D00EF571D /* GameKit.framework */; };
+		A4390E521CC57CB900EF571D /* WaitingForTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4390E511CC57CB900EF571D /* WaitingForTap.swift */; };
+		A4390E541CC5822700EF571D /* WaitingForBomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4390E531CC5822700EF571D /* WaitingForBomb.swift */; };
+		A4390E561CC6113F00EF571D /* Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4390E551CC6113F00EF571D /* Playing.swift */; };
+		A468D7641CC6194C00CAB795 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468D7631CC6194C00CAB795 /* GameOver.swift */; };
+		A468D76C1CC61E2300CAB795 /* Dead.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468D7671CC61E2300CAB795 /* Dead.swift */; };
+		A468D76D1CC61E2300CAB795 /* Fall.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468D7681CC61E2300CAB795 /* Fall.swift */; };
+		A468D76E1CC61E2300CAB795 /* Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468D7691CC61E2300CAB795 /* Idle.swift */; };
+		A468D76F1CC61E2300CAB795 /* Jump.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468D76A1CC61E2300CAB795 /* Jump.swift */; };
+		A468D7701CC61E2300CAB795 /* Lava.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468D76B1CC61E2300CAB795 /* Lava.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +104,16 @@
 		A4390E451CC511E700EF571D /* CoinSDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinSDiagonal.sks; sourceTree = "<group>"; };
 		A4390E461CC511E700EF571D /* PlatformDiagonal.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlatformDiagonal.sks; sourceTree = "<group>"; };
 		A4390E4D1CC54FD700EF571D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A4390E4F1CC57C7D00EF571D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		A4390E511CC57CB900EF571D /* WaitingForTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForTap.swift; sourceTree = "<group>"; };
+		A4390E531CC5822700EF571D /* WaitingForBomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForBomb.swift; sourceTree = "<group>"; };
+		A4390E551CC6113F00EF571D /* Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playing.swift; sourceTree = "<group>"; };
+		A468D7631CC6194C00CAB795 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
+		A468D7671CC61E2300CAB795 /* Dead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dead.swift; sourceTree = "<group>"; };
+		A468D7681CC61E2300CAB795 /* Fall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fall.swift; sourceTree = "<group>"; };
+		A468D7691CC61E2300CAB795 /* Idle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Idle.swift; sourceTree = "<group>"; };
+		A468D76A1CC61E2300CAB795 /* Jump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jump.swift; sourceTree = "<group>"; };
+		A468D76B1CC61E2300CAB795 /* Lava.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lava.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4390E501CC57C7D00EF571D /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +138,7 @@
 		A4390DE71CC3C01100EF571D = {
 			isa = PBXGroup;
 			children = (
+				A4390E4F1CC57C7D00EF571D /* GameKit.framework */,
 				A4390E4D1CC54FD700EF571D /* README.md */,
 				A4390DF21CC3C01100EF571D /* DropCharge */,
 				A4390E0B1CC3C01100EF571D /* DropChargeTests */,
@@ -146,6 +168,7 @@
 				A4390DFE1CC3C01100EF571D /* Assets.xcassets */,
 				A4390E001CC3C01100EF571D /* LaunchScreen.storyboard */,
 				A4390E031CC3C01100EF571D /* Info.plist */,
+				A468D7651CC61B1500CAB795 /* StateMachines */,
 			);
 			path = DropCharge;
 			sourceTree = "<group>";
@@ -199,6 +222,38 @@
 			path = SKTUtils;
 			sourceTree = "<group>";
 		};
+		A468D7651CC61B1500CAB795 /* StateMachines */ = {
+			isa = PBXGroup;
+			children = (
+				A468D7711CC61E2A00CAB795 /* Player */,
+				A468D7661CC61B2B00CAB795 /* Game */,
+			);
+			name = StateMachines;
+			sourceTree = "<group>";
+		};
+		A468D7661CC61B2B00CAB795 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				A4390E511CC57CB900EF571D /* WaitingForTap.swift */,
+				A4390E531CC5822700EF571D /* WaitingForBomb.swift */,
+				A4390E551CC6113F00EF571D /* Playing.swift */,
+				A468D7631CC6194C00CAB795 /* GameOver.swift */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		A468D7711CC61E2A00CAB795 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				A468D7691CC61E2300CAB795 /* Idle.swift */,
+				A468D76A1CC61E2300CAB795 /* Jump.swift */,
+				A468D7681CC61E2300CAB795 /* Fall.swift */,
+				A468D76B1CC61E2300CAB795 /* Lava.swift */,
+				A468D7671CC61E2300CAB795 /* Dead.swift */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -249,6 +304,12 @@
 				TargetAttributes = {
 					A4390DEF1CC3C01100EF571D = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 42QKD5MP86;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					A4390E071CC3C01100EF571D = {
 						CreatedOnToolsVersion = 7.3;
@@ -318,13 +379,22 @@
 				A4390DF81CC3C01100EF571D /* GameScene.swift in Sources */,
 				A4390E2A1CC3D4D600EF571D /* CGPoint+Extensions.swift in Sources */,
 				A4390E331CC3D4D600EF571D /* SKTTimingFunctions.swift in Sources */,
+				A468D7641CC6194C00CAB795 /* GameOver.swift in Sources */,
+				A468D76D1CC61E2300CAB795 /* Fall.swift in Sources */,
+				A4390E541CC5822700EF571D /* WaitingForBomb.swift in Sources */,
 				A4390E321CC3D4D600EF571D /* SKTEffects.swift in Sources */,
 				A4390E2E1CC3D4D600EF571D /* SKAction+SpecialEffects.swift in Sources */,
 				A4390E2B1CC3D4D600EF571D /* CGVector+Extensions.swift in Sources */,
+				A468D7701CC61E2300CAB795 /* Lava.swift in Sources */,
+				A468D76F1CC61E2300CAB795 /* Jump.swift in Sources */,
 				A4390E4E1CC54FD700EF571D /* README.md in Sources */,
+				A468D76C1CC61E2300CAB795 /* Dead.swift in Sources */,
 				A4390E2D1CC3D4D600EF571D /* SKAction+Extensions.swift in Sources */,
+				A4390E561CC6113F00EF571D /* Playing.swift in Sources */,
 				A4390E2F1CC3D4D600EF571D /* SKColor+Extensions.swift in Sources */,
+				A4390E521CC57CB900EF571D /* WaitingForTap.swift in Sources */,
 				A4390DFA1CC3C01100EF571D /* GameViewController.swift in Sources */,
+				A468D76E1CC61E2300CAB795 /* Idle.swift in Sources */,
 				A4390E2C1CC3D4D600EF571D /* Int+Extensions.swift in Sources */,
 				A4390E301CC3D4D600EF571D /* SKNode+Extensions.swift in Sources */,
 				A4390E311CC3D4D600EF571D /* SKTAudio.swift in Sources */,
