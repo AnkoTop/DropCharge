@@ -25,7 +25,7 @@ class Dead: GKState {
         moveDownAction.timingMode = .EaseIn
         let sequence = SKAction.sequence( [moveUpAction, moveDownAction])
         scene.player.runAction(sequence)
-        print("DEAD")
+        scene.runAction(scene.soundGameOver)
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

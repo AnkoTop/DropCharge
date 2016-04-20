@@ -18,9 +18,8 @@ class Fall: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
-        
-        print("FALL, previous state: \(previousState)")
-        
+        scene.playerTrail.particleBirthRate = 0
+        scene.player.runAction(scene.squashAndStretch!)
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

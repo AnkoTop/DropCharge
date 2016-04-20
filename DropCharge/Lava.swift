@@ -18,11 +18,23 @@ class Lava: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
+        scene.runAction(scene.soundHitLava)
+        scene.screenShakeByAmt(50)
+        scene.player.runAction(scene.squashAndStretch!)
+        
+        scene.playerTrail.particleBirthRate = 0 // disable the normal trail
+        let smokeTrail = scene.addTrail("SmokeTrail")
+        scene.runAction(SKAction.sequence([
+            SKAction.waitForDuration(3.0),
+            SKAction.runBlock() {
+                self.scene.removeTrail(smokeTrail)
+            }
+            ]))
         if scene.player.position.y < scene.lava.position.y + 90 {
             scene.boostPlayer()
             scene.lives -= 1
         }
-        print("LAVA")
+    
        
     }
     

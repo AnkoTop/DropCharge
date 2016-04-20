@@ -24,6 +24,7 @@ class Idle: GKState {
         scene.player.physicsBody!.categoryBitMask = PhysicsCategory.Player
         scene.player.physicsBody!.collisionBitMask = 0
         print("IDLE")
+        scene.playerTrail = scene.addTrail("PlayerTrail")
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {
