@@ -14,12 +14,14 @@ class WaitingForBomb: GKState {
     unowned let scene: GameScene
     
     init(scene: SKScene) {
+    
         self.scene = scene as! GameScene
         super.init()
     }
     
-    override func didEnterWithPreviousState(
-        previousState: GKState?) {
+    
+    override func didEnterWithPreviousState(previousState: GKState?) {
+        
         if previousState is WaitingForTap {
             // Scale out title & ready label
             let scale = SKAction.scaleTo(0, duration: 0.4)
@@ -40,10 +42,12 @@ class WaitingForBomb: GKState {
         }
     }
     
+    
     override func isValidNextState(stateClass: AnyClass) -> Bool {
     
         return stateClass is Playing.Type
     }
+    
     
     override func willExitWithNextState(nextState: GKState) {
         

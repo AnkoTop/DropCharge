@@ -11,6 +11,7 @@ import CoreMotion
 import GameplayKit
 
 
+// Gamelements
 struct PhysicsCategory {
     static let None: UInt32 = 0
     static let Player: UInt32 = 0b1 // 1
@@ -64,7 +65,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var lives = 3
     
-    
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
         WaitingForTap(scene: self),
         WaitingForBomb(scene: self),
@@ -102,7 +102,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             waitForCompletion: false)
     ]
     
-    
     var coinRef: SKSpriteNode!
     var coinSpecialRef: SKSpriteNode!
     
@@ -113,7 +112,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var curAnim: SKAction? = nil
     
     var squashAndStretch: SKAction? = nil
-
     
     var playerTrail: SKEmitterNode!
     
@@ -123,12 +121,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let gameGain: CGFloat = 2.5
     
     var redAlertTime: NSTimeInterval = 0
+
     
     // CODE //
     
     override func didMoveToView(view: SKView) {
         
-        setupCoreMotion()
+        setupCoreMotion() // setup player steering
         
         physicsWorld.contactDelegate = self
         
@@ -148,6 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         animSteerRight = setupAnimWithPrefix("player01_steerright_", start: 1, end: 2, timePerFrame: 0.1)
     }
     
+    
     override func update(currentTime: NSTimeInterval) {
         
         if lastUpdateTimeInterval > 0 {
@@ -155,8 +155,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             deltaTime = 0
         }
+    
         lastUpdateTimeInterval = currentTime
+        
         if paused { return }
+        
+        // Update statemachines
         gameState.updateWithDeltaTime(deltaTime)
         playerState.updateWithDeltaTime(deltaTime)
     }
@@ -164,6 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
         
     func setupNodes() {
+        
         let worldNode = childNodeWithName("World")!
         bgNode = worldNode.childNodeWithName("Background")!
         
@@ -175,7 +180,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         coinRef = loadOverlayNode("Coin")
         coinSpecialRef = loadOverlayNode("CoinSpecial")
-        
         
         coin5Across = loadCoinOverlayNode("Coin5Across")
         coinDiagonal = loadCoinOverlayNode("CoinDiagonal")
@@ -190,11 +194,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         platformArrow = loadOverlayNode("PlatformArrow")
         platformDiagonal = loadOverlayNode("PlatformDiagonal")
         
-        
         break5Across = loadOverlayNode("Break5Across")
         breakArrow = loadOverlayNode("BreakArrow")
         breakDiagonal = loadOverlayNode("BreakDiagonal")
-        
         
         let squishAction = SKAction.scaleXTo(1.15, y: 0.85, duration: 0.25)
         squishAction.timingMode = SKActionTimingMode.EaseInEaseOut
@@ -209,7 +211,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupLava()
     }
     
+    
     func setupLevel() {
+
         // Place initial platform
         let initialPlatform = platform5Across.copy() as! SKSpriteNode
         var itemPosition = player.position
@@ -227,6 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func updateLevel() {
+        
         let cameraPos = getCameraPosition()
         if cameraPos.y > levelY - (size.height * 0.55) {
             createBackgroundNode()
@@ -234,6 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addRandomOverlayNode()
             }
         }
+        
         // remove old nodes...
         for fg in fgNode.children {
             for node in fg.children {

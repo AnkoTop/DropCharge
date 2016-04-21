@@ -14,11 +14,14 @@ class GameOver: GKState {
     unowned let scene: GameScene
 
     init(scene: SKScene) {
+        
         self.scene = scene as! GameScene
         super.init()
     }
 
+    
     override func didEnterWithPreviousState(previousState: GKState?) {
+    
         if previousState is Playing {
             scene.playBackgroundMusic("SpaceGame.caf")
             scene.physicsWorld.contactDelegate = nil
@@ -43,8 +46,11 @@ class GameOver: GKState {
         }
     }
   
+    
     override func isValidNextState(stateClass: AnyClass) -> Bool {
+    
         return stateClass is WaitingForTap.Type
+    
     }
 
 }

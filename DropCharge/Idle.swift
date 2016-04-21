@@ -18,16 +18,19 @@ class Idle: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
+        // not interested in the previousState: always execute the code
         scene.player.physicsBody = SKPhysicsBody(circleOfRadius: scene.player.size.width * 0.3)
         scene.player.physicsBody!.dynamic = false
         scene.player.physicsBody!.allowsRotation = false
         scene.player.physicsBody!.categoryBitMask = PhysicsCategory.Player
         scene.player.physicsBody!.collisionBitMask = 0
-        print("IDLE")
+        
+        // add an exhaust trail
         scene.playerTrail = scene.addTrail("PlayerTrail")
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {
+        
         return stateClass is Jump.Type
     }
     

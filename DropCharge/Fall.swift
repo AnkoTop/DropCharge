@@ -12,18 +12,26 @@ import GameplayKit
 class Fall: GKState {
 
     unowned let scene: GameScene
+    
+    
     init(scene: SKScene) {
+    
         self.scene = scene as! GameScene
         super.init()
     }
     
+    
     override func didEnterWithPreviousState(previousState: GKState?) {
+        // Disable exhaust when falling
         scene.playerTrail.particleBirthRate = 0
-        scene.player.runAction(scene.squashAndStretch!)
+        //scene.player.runAction(scene.squashAndStretch!)
     }
     
+    
     override func isValidNextState(stateClass: AnyClass) -> Bool {
+        
         return stateClass is Lava.Type || stateClass is Jump.Type
+    
     }
     
 }

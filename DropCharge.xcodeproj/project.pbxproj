@@ -316,10 +316,10 @@
 			isa = PBXGroup;
 			children = (
 				A468D77F1CC664FF00CAB795 /* PlayerTrail.sks */,
+				A468D7771CC6583100CAB795 /* SmokeTrail.sks */,
 				A468D77B1CC65D4B00CAB795 /* CollectSpecial.sks */,
 				A468D7731CC6549100CAB795 /* Lava.sks */,
 				A468D7741CC6549100CAB795 /* spark.png */,
-				A468D7771CC6583100CAB795 /* SmokeTrail.sks */,
 				A468D7791CC65BBD00CAB795 /* CollectNormal.sks */,
 				A468D77D1CC65F5900CAB795 /* BrokenPlatform.sks */,
 			);

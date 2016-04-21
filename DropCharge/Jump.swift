@@ -23,10 +23,12 @@ class Jump: GKState {
         if previousState is Lava {
             return
         }
+        // Check if we need to make the exhaust work
         if scene.playerTrail.particleBirthRate == 0 {
             scene.playerTrail.particleBirthRate = 200
         }
-         scene.player.runAction(scene.squashAndStretch!)
+        // animate the player when jumping
+        scene.player.runAction(scene.squashAndStretch!)
     }
     
     
@@ -35,6 +37,7 @@ class Jump: GKState {
     }
     
     override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        // Animate the player
         if abs(scene.player.physicsBody!.velocity.dx) > 100.0 {
             if (scene.player.physicsBody!.velocity.dx > 0) {
                 scene.runAnim(scene.animSteerRight)

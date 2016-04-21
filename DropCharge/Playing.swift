@@ -18,6 +18,7 @@ class Playing: GKState {
         super.init()
     }
     
+    
     override func didEnterWithPreviousState(previousState: GKState?) {
      
         if previousState is WaitingForBomb {
@@ -27,7 +28,9 @@ class Playing: GKState {
         }
     }
     
+    
     override func updateWithDeltaTime(seconds: NSTimeInterval) {
+    
         scene.updateCamera()
         scene.updateLevel()
         scene.updatePlayer()
@@ -36,6 +39,7 @@ class Playing: GKState {
         scene.updateExplosions(seconds)
         scene.updateRedAlert(seconds)
     }
+    
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {
         
